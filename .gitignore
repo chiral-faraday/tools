@@ -1,0 +1,86 @@
+# See https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+.env
+
+# compiled output
+dist
+tmp
+out-tsc
+
+# dependencies
+node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+
+.nx/cache
+.nx/workspace-data
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md
+
+vite.config.*.timestamp*
+vitest.config.*.timestamp*
+.claude/worktrees
+.claude/settings.local.json
+.nx/polygraph
+
+# db
+*.db
+*.db-shm
+*.db-wal
+
+# RabbitMQ
+mnesia
+.erlang.cookie
+
+# data
+apps/eventing/data
+apps/mail/data
+apps/notification/data
+apps/storage/data
+apps/workflow/data
+!apps/eventing/data/.gitkeep
+!apps/mail/data/.gitkeep
+!apps/notification/data/.gitkeep
+!app/storage/data/.gitkeep
+!app/workflow/data/.gitkeep
+
+# logs
+apps/eventing/logs
+apps/mail/logs
+apps/notification/logs
+apps/storage/logs
+apps/workflow/logs
+!apps/eventing/logs/.gitkeep
+!apps/mail/logs/.gitkeep
+!apps/notification/logs/.gitkeep
+!apps/storage/logs/.gitkeep
+!apps/workflow/logs/.gitkeep
+
+apps
