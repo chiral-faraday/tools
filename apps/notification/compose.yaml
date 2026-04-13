@@ -1,0 +1,21 @@
+services:
+  ntfy:
+    image: binwiederhier/ntfy
+    container_name: ntfy
+    command:
+      - serve
+    environment:
+      - TZ=GMT # optional: Change to your desired timezone
+    # optional: Set custom user/group or uid/gid
+    user: ${NTFY_USER_UID:-1000}:${NTFY_USER_GID:-1000}
+    volumes:
+      - ./data/var/cache/ntfy:/var/cache/ntfy
+      - ./config/etc/ntfy:/etc/ntfy
+    networks:
+      - toolsnet
+    ports:
+      - 8066:80
+    restart: unless-stopped
+networks:
+  toolsnet:
+    external: true

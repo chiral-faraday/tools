@@ -1,0 +1,28 @@
+{
+  "root": "apps/notification",
+  "sourceRoot": "apps/notification",
+  "projectType": "application",
+  "targets": {
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo '[@tools/notification] Test executor is not implemented!'",
+        "cwd": "apps/notification"
+      }
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo '[@tools/notification] Starting notification services!' && docker compose -f ./compose.yaml up -d",
+        "cwd": "apps/notification"
+      }
+    },
+    "stop": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo '[@tools/notification] Stopping notification services!' && docker compose -f ./compose.yaml down",
+        "cwd": "apps/mail"
+      }
+    }
+  }
+}
