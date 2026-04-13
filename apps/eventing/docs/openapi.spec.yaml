@@ -1,0 +1,346 @@
+openapi: 3.0.3
+info:
+  title: Eventing Exploration API
+  description: |
+    API for exploring event-driven architecture using RabbitMQ concepts:
+    queues, exchanges (topics), bindings, consumers, and message flow.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3093/api/v1/eventing
+
+tags:
+  - name: Queues
+  - name: Exchanges
+  - name: Bindings
+  - name: Messages
+  - name: Consumers
+  - name: Debug
+  - name: Simulation
+
+paths:
+  /queues:
+    post:
+      tags: [Queues]
+      summary: Create a queue
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                durable:
+                  type: boolean
+                  default: true
+      responses:
+        '201':
+          description: Queue created
+
+    get:
+      tags: [Queues]
+      summary: List queues
+      responses:
+        '200':
+          description: List of queues
+
+  /queues/{name}:
+    delete:
+      tags: [Queues]
+      summary: Delete a queue
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Queue deleted
+
+  /exchanges:
+    post:
+      tags: [Exchanges]
+      summary: Create an exchange (topic/fanout/direct)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, type]
+              properties:
+                name:
+                  type: string
+                type:
+                  type: string
+                  enum: [direct, topic, fanout, headers]
+                durable:
+                  type: boolean
+                  default: true
+      responses:
+        '201':
+          description: Exchange created
+
+    get:
+      tags: [Exchanges]
+      summary: List exchanges
+      responses:
+        '200':
+          description: List of exchanges
+
+  /exchanges/{name}:
+    delete:
+      tags: [Exchanges]
+      summary: Delete an exchange
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Exchange deleted
+
+  /bindings:
+    post:
+      tags: [Bindings]
+      summary: Bind a queue to an exchange
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [queue, exchange, routingKey]
+              properties:
+                queue:
+                  type: string
+                exchange:
+                  type: string
+                routingKey:
+                  type: string
+      responses:
+        '201':
+          description: Binding created
+
+    delete:
+      tags: [Bindings]
+      summary: Remove a binding
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [queue, exchange, routingKey]
+              properties:
+                queue:
+                  type: string
+                exchange:
+                  type: string
+                routingKey:
+                  type: string
+      responses:
+        '200':
+          description: Binding removed
+
+  /messages/queue:
+    post:
+      tags: [Messages]
+      summary: Send message directly to a queue
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [queue, message]
+              properties:
+                queue:
+                  type: string
+                message:
+                  type: object
+      responses:
+        '202':
+          description: Message sent
+
+  /messages/exchange:
+    post:
+      tags: [Messages]
+      summary: Publish message to an exchange
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [exchange, routingKey, message]
+              properties:
+                exchange:
+                  type: string
+                routingKey:
+                  type: string
+                message:
+                  type: object
+      responses:
+        '202':
+          description: Message published
+
+  /consumers:
+    post:
+      tags: [Consumers]
+      summary: Start a consumer for a queue
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [queue]
+              properties:
+                queue:
+                  type: string
+                consumerTag:
+                  type: string
+                autoAck:
+                  type: boolean
+                  default: false
+      responses:
+        '201':
+          description: Consumer started
+
+    get:
+      tags: [Consumers]
+      summary: List active consumers
+      responses:
+        '200':
+          description: Active consumers list
+
+  /consumers/{consumerTag}:
+    delete:
+      tags: [Consumers]
+      summary: Stop a consumer
+      parameters:
+        - name: consumerTag
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Consumer stopped
+
+  /messages/ack:
+    post:
+      tags: [Messages]
+      summary: Acknowledge a message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [messageId]
+              properties:
+                messageId:
+                  type: string
+      responses:
+        '200':
+          description: Message acknowledged
+
+  /messages/nack:
+    post:
+      tags: [Messages]
+      summary: Reject a message (optionally requeue)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [messageId]
+              properties:
+                messageId:
+                  type: string
+                requeue:
+                  type: boolean
+                  default: true
+      responses:
+        '200':
+          description: Message rejected
+
+  /queues/{name}/messages:
+    get:
+      tags: [Debug]
+      summary: Peek messages in a queue
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Messages in queue
+
+    delete:
+      tags: [Debug]
+      summary: Purge a queue
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Queue purged
+
+  /health:
+    get:
+      tags: [Debug]
+      summary: System health check
+      responses:
+        '200':
+          description: System status
+
+  /simulate/load:
+    post:
+      tags: [Simulation]
+      summary: Send load messages into system
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                count:
+                  type: integer
+                  default: 100
+      responses:
+        '202':
+          description: Load simulation started
+
+  /simulate/consumer-delay:
+    post:
+      tags: [Simulation]
+      summary: Start slow consumer simulation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                delayMs:
+                  type: integer
+                  default: 1000
+      responses:
+        '201':
+          description: Slow consumer started

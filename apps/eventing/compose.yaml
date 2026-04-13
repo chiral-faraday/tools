@@ -1,0 +1,41 @@
+# Define reusable defaults using YAML anchor
+x-defaults: &defaults
+  stop_grace_period: 60s # Give containers up to 60s to shut down cleanly
+
+services:
+  rabbitmq:
+    <<: *defaults
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - 5672:5672 # AMQP protocol (used by apps)
+      - 15672:15672 # Web management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_PLUGINS: rabbitmq_management rabbitmq_prometheus rabbitmq_shovel rabbitmq_federation
+    networks:
+      - toolsnet
+    volumes:
+      - ./data:/var/lib/rabbitmq/
+      # - ./config:/etc/rabbitmq/
+      # - ./logs:/var/log/rabbitmq
+  express_api:
+    <<: *defaults
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: eventing-express-api
+    ports:
+      - 3093:3000 # Access API at http://localhost:3093
+    environment:
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672
+    networks:
+      - toolsnet
+    restart: unless-stopped
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+networks:
+  toolsnet:
+    external: true
