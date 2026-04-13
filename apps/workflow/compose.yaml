@@ -1,0 +1,31 @@
+# Define reusable defaults using a YAML anchor
+x-defaults: &defaults
+  stop_grace_period: 60s
+
+services:
+  n8n:
+    # Merge in shared defaults
+    <<: *defaults
+    image: n8nio/n8n:latest
+    container_name: n8n
+    networks:
+      - toolsnet
+    ports:
+      # N8N web UI access at http://localhost:5678
+      - 5678:5678
+    environment:
+      # Use embedded SQLite DB (not for production)
+      - DB_TYPE=sqlite
+      -  # Enable login protection
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      -  # ⚠️ Change in real setups
+      - N8N_BASIC_AUTH_PASSWORD=admin123
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - WEBHOOK_URL=http://localhost:5678
+    volumes:
+      - ./data:/home/node/.n8n
+networks:
+  toolsnet:
+    external: true

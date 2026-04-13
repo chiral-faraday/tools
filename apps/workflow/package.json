@@ -1,0 +1,17 @@
+{
+  "name": "@tools/workflow",
+  "version": "0.1.0",
+  "description": "Workflow services",
+  "keywords": [
+    "workflow",
+    "tools",
+    "services"
+  ],
+  "license": "ISC",
+  "author": "chiral-faraday",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

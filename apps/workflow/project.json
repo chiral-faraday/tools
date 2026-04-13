@@ -1,0 +1,28 @@
+{
+  "root": "apps/workflow",
+  "sourceRoot": "apps/workflow",
+  "projectType": "application",
+  "targets": {
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo '[@tools/workflow] Test executor is not implemented!'",
+        "cwd": "apps/workflow"
+      }
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo '[@tools/workflow] Starting workflow services!' && docker compose -f ./compose.yaml up -d",
+        "cwd": "apps/workflow"
+      }
+    },
+    "stop": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo '[@tools/workflow] Stopping workflow services!' && docker compose -f ./compose.yaml down",
+        "cwd": "apps/workflow"
+      }
+    }
+  }
+}
