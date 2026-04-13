@@ -60,38 +60,38 @@ mnesia
 .erlang.cookie
 
 # docs
-apps/eventing/docs
-apps/mail/docs
-apps/notification/docs
-apps/storage/docs
-apps/workflow/docs
+apps/eventing/docs/*
 !apps/eventing/docs/.gitkeep
+apps/mail/docs/*
 !apps/mail/docs/.gitkeep
+apps/notification/docs/*
 !apps/notification/docs/.gitkeep
+apps/storage/docs/*
 !apps/storage/docs/.gitkeep
+apps/workflow/docs/*
 !apps/workflow/docs/.gitkeep
 
 
 # data
-apps/eventing/data
-apps/mail/data
-apps/notification/data
-apps/storage/data
-apps/workflow/data
+apps/eventing/data/*
 !apps/eventing/data/.gitkeep
+apps/mail/data/*
 !apps/mail/data/.gitkeep
+apps/notification/data/*
 !apps/notification/data/.gitkeep
+apps/storage/data/*
 !app/storage/data/.gitkeep
+apps/workflow/data/*
 !app/workflow/data/.gitkeep
 
 # logs
-apps/eventing/logs
-apps/mail/logs
-apps/notification/logs
-apps/storage/logs
-apps/workflow/logs
+apps/eventing/logs/*
 !apps/eventing/logs/.gitkeep
+apps/mail/logs/*
 !apps/mail/logs/.gitkeep
+apps/notification/logs/*
 !apps/notification/logs/.gitkeep
+apps/storage/logs/*
 !apps/storage/logs/.gitkeep
+apps/workflow/logs/*
 !apps/workflow/logs/.gitkeep
