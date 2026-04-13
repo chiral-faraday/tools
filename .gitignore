@@ -60,7 +60,6 @@ mnesia
 .erlang.cookie
 
 # docs
-# logs
 apps/eventing/docs
 apps/mail/docs
 apps/notification/docs
