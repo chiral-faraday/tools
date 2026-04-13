@@ -59,6 +59,20 @@ vitest.config.*.timestamp*
 mnesia
 .erlang.cookie
 
+# docs
+# logs
+apps/eventing/docs
+apps/mail/docs
+apps/notification/docs
+apps/storage/docs
+apps/workflow/docs
+!apps/eventing/docs/.gitkeep
+!apps/mail/docs/.gitkeep
+!apps/notification/docs/.gitkeep
+!apps/storage/docs/.gitkeep
+!apps/workflow/docs/.gitkeep
+
+
 # data
 apps/eventing/data
 apps/mail/data
