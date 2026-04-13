@@ -82,5 +82,3 @@ apps/workflow/logs
 !apps/notification/logs/.gitkeep
 !apps/storage/logs/.gitkeep
 !apps/workflow/logs/.gitkeep
-
-apps
