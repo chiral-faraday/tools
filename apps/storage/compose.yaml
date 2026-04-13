@@ -1,0 +1,24 @@
+# Define reusable defaults using a YAML anchor
+x-defaults: &defaults
+  stop_grace_period: 60s # Give containers up to 60s to shut down cleanly
+
+services:
+  minio:
+    <<: *defaults
+    image: minio/minio # S3-compatible object storage
+    container_name: minio
+    networks:
+      - toolsnet
+    ports:
+      - 9000:9000 # API endpoint
+      - 9001:9001 # Web console UI
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin # ⚠️ Change in real setups
+      MINIO_ENDPOINT: 'http://minio:9000' # Internal service URL (Docker network)
+    command: server /data --console-address ":9001" # Start MinIO server with web console enabled
+    volumes:
+      - ./data:/data # Persist stored files
+networks:
+  toolsnet:
+    external: true

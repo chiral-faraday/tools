@@ -1,0 +1,28 @@
+{
+  "root": "apps/storage",
+  "sourceRoot": "apps/storage",
+  "projectType": "application",
+  "targets": {
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo '[@tools/storage] Test executor is not implemented!'",
+        "cwd": "apps/storage"
+      }
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo '[@tools/storage] Starting storage services!' && docker compose -f ./compose.yaml up -d",
+        "cwd": "apps/storage"
+      }
+    },
+    "stop": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo '[@tools/storage] Stopping storage services!' && docker compose -f ./compose.yaml down",
+        "cwd": "apps/storage"
+      }
+    }
+  }
+}
