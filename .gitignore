@@ -59,18 +59,17 @@ vitest.config.*.timestamp*
 mnesia
 .erlang.cookie
 
-# docs
-apps/eventing/docs/*
-!apps/eventing/docs/.gitkeep
-apps/mail/docs/*
-!apps/mail/docs/.gitkeep
-apps/notification/docs/*
-!apps/notification/docs/.gitkeep
-apps/storage/docs/*
-!apps/storage/docs/.gitkeep
-apps/workflow/docs/*
-!apps/workflow/docs/.gitkeep
-
+# config
+apps/eventing/config/*
+!apps/eventing/config/.gitkeep
+apps/mail/config/*
+!apps/mail/config/.gitkeep
+apps/notification/config/*
+!apps/notification/config/.gitkeep
+apps/storage/config/*
+!app/storage/config/.gitkeep
+apps/workflow/config/*
+!app/workflow/config/.gitkeep
 
 # data
 apps/eventing/data/*
@@ -83,6 +82,18 @@ apps/storage/data/*
 !app/storage/data/.gitkeep
 apps/workflow/data/*
 !app/workflow/data/.gitkeep
+
+# docs
+apps/eventing/docs/*
+!apps/eventing/docs/.gitkeep
+apps/mail/docs/*
+!apps/mail/docs/.gitkeep
+apps/notification/docs/*
+!apps/notification/docs/.gitkeep
+apps/storage/docs/*
+!apps/storage/docs/.gitkeep
+apps/workflow/docs/*
+!apps/workflow/docs/.gitkeep
 
 # logs
 apps/eventing/logs/*
