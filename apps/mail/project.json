@@ -1,0 +1,28 @@
+{
+  "root": "apps/mail",
+  "sourceRoot": "apps/mail",
+  "projectType": "application",
+  "targets": {
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo '[@tools/mail] Test executor is not implemented!'",
+        "cwd": "apps/mail"
+      }
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo '[@tools/mail] Starting mail services!' && docker compose -f ./compose.yaml up -d",
+        "cwd": "apps/mail"
+      }
+    },
+    "stop": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo '[@tools/mail] Stopping mail services!' && docker compose -f ./compose.yaml down",
+        "cwd": "apps/mail"
+      }
+    }
+  }
+}

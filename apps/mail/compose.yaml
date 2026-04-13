@@ -1,0 +1,20 @@
+services:
+  mailpit:
+    image: axllent/mailpit
+    container_name: mailpit_container
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+    networks:
+      - toolsnet
+    ports:
+      - 8025:8025
+      - 1025:1025 # comment this out if you do not wish to expose the SMTP to the entire host network
+    environment:
+      MP_MAX_MESSAGES: 5000
+      MP_DATABASE: /data/mailpit.db
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+networks:
+  toolsnet:
+    external: true
