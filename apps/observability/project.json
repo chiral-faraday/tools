@@ -1,0 +1,28 @@
+{
+  "root": "apps/observability",
+  "sourceRoot": "apps/observability",
+  "projectType": "application",
+  "targets": {
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo '[@tools/observability] Test executor is not implemented!'",
+        "cwd": "apps/observability"
+      }
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo '[@tools/observability] Starting observability services!' && docker compose -f ./compose.yaml up -d",
+        "cwd": "apps/observability"
+      }
+    },
+    "stop": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo '[@tools/observability] Stopping observability services!' && docker compose -f ./compose.yaml down",
+        "cwd": "apps/observability"
+      }
+    }
+  }
+}
