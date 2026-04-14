@@ -7,6 +7,8 @@
     "stop:eventing:services": "npx nx run eventing:stop",
     "start:mail:services": "npx nx run mail:start",
     "stop:mail:services": "npx nx run mail:stop",
+    "start:observability:services": "npx nx run observability:start",
+    "stop:observability:services": "npx nx run observability:stop",
     "start:notification:services": "npx nx run notification:start",
     "stop:notification:services": "npx nx run notification:stop",
     "start:storage:services": "npx nx run storage:start",
