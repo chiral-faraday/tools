@@ -7,21 +7,21 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "echo '[@tools/eventing] Test executor is not implemented!'",
-        "cwd": "apps/mail"
+        "cwd": "apps/eventing"
       }
     },
     "start": {
       "executor": "nx:run-commands",
       "options": {
         "command": "echo '[@tools/eventing] Starting eventing services!' && docker compose -f ./compose.yaml up -d",
-        "cwd": "apps/mail"
+        "cwd": "apps/eventing"
       }
     },
     "stop": {
       "executor": "nx:run-commands",
       "options": {
         "command": "echo '[@tools/eventing] Stopping eventing services!' && docker compose -f ./compose.yaml down",
-        "cwd": "apps/mail"
+        "cwd": "apps/eventing"
       }
     }
   }
