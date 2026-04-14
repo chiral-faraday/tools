@@ -108,7 +108,10 @@ apps/workflow/logs/*
 !apps/workflow/logs/.gitkeep
 
 # Promethus
-apps/observability/data/**
-!apps/observability/.gitkeep
+apps/observability/data/*
 !apps/observability/data/grafana/.gitkeep
 !apps/observability/data/prometheus/.gitkeep
+
+apps/observability/logs/**
+!apps/observability/logs/grafana/.gitkeep
+!apps/observability/logs/prometheus/.gitkeep
