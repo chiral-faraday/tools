@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { QueueService } from '../services/queue.service.js';
+import { QueueService } from '../services/queue/queue.service.js';
 import { getParam } from '../lib/http.js';
 
 /**
