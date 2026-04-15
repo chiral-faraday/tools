@@ -4,6 +4,8 @@ services:
     container_name: prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
+    depends_on:
+      - alertmanager
     networks:
       - toolsnet
     ports:
@@ -11,24 +13,60 @@ services:
     restart: unless-stopped
     volumes:
       - ./config/prometheus/:/etc/prometheus
+      - ./config/prometheus/rules/:/etc/prometheus/rules
       - ./data/prometheus:/prometheus
       - ./logs/prometheus:/var/log/prometheus
-
+  alertmanager:
+    image: prom/alertmanager
+    container_name: alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+      - '--web.external-url=http://localhost:9070'
+    restart: unless-stopped
+    volumes:
+      - ./config/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - ./config/alertmanager/templates:/etc/alertmanager/templates
+    networks:
+      - toolsnet
+    ports:
+      - 9070:9093
   grafana:
     image: grafana/grafana
     container_name: grafana
+    depends_on:
+      - prometheus
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=grafana
     networks:
       - toolsnet
     ports:
-      - 3069:3000
+      - 9071:3000
     restart: unless-stopped
     volumes:
       - ./config/grafana/provisioning:/etc/grafana/provisioning
       - ./data/grafana:/var/lib/grafana
       - ./logs/grafana:/var/log/grafana
+  mailpit:
+    image: axllent/mailpit
+    container_name: mailpit
+    networks:
+      - toolsnet
+    ports:
+      - 9072:8025
+      - 1025:1025
+  ntfy:
+    image: binwiederhier/ntfy
+    container_name: ntfy
+    command: serve
+    networks:
+      - toolsnet
+    ports:
+      - 9073:80
+    volumes:
+      - ./data/ntfy:/var/cache/ntfy
+    restart: unless-stopped
 networks:
   toolsnet:
     external: true
