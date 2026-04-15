@@ -1,0 +1,80 @@
+groups:
+  - name: training-observability
+    rules:
+      # 1. Dead Man's Switch (always firing)
+      - alert: PrometheusAlertmanagerE2eDeadManSwitch
+        expr: vector(1)
+        for: 0m
+        labels:
+          severity: critical
+          service: observability
+          team: tools
+          project: tools
+        annotations:
+          summary: 'Dead man switch'
+          description: 'Always firing alert to verify end-to-end alerting pipeline.'
+
+      # 2. Prometheus cannot reach Alertmanager
+      - alert: PrometheusNotConnectedToAlertmanager
+        expr: prometheus_notifications_alertmanagers_discovered < 1
+        for: 0m
+        labels:
+          severity: critical
+          service: observability
+          team: tools
+          project: tools
+        annotations:
+          summary: 'Prometheus not connected to Alertmanager'
+          description: 'Prometheus cannot reach Alertmanager.'
+
+      # 3. Any target is down
+      - alert: PrometheusTargetMissing
+        expr: up == 0
+        for: 30s
+        labels:
+          severity: critical
+          service: prometheus
+          team: tools
+          project: tools
+        annotations:
+          summary: 'Target down'
+          description: 'A scrape target is down (instance {{ $labels.instance }}).'
+
+      # 4. All targets are down
+      - alert: PrometheusAllTargetsMissing
+        expr: sum(up) == 0
+        for: 30s
+        labels:
+          severity: critical
+          service: prometheus
+          team: tools
+          project: tools
+        annotations:
+          summary: 'All targets down'
+          description: 'Prometheus cannot scrape any targets.'
+
+      # 5. Prometheus config reload failure
+      - alert: PrometheusConfigurationReloadFailure
+        expr: prometheus_config_last_reload_successful != 1
+        for: 0m
+        labels:
+          severity: warning
+          service: prometheus
+          team: tools
+          project: tools
+        annotations:
+          summary: 'Config reload failed'
+          description: 'Prometheus failed to reload its configuration.'
+
+      # 6. Prometheus restarting too frequently
+      - alert: PrometheusTooManyRestarts
+        expr: changes(process_start_time_seconds[15m]) > 2
+        for: 0m
+        labels:
+          severity: warning
+          service: prometheus
+          team: tools
+          project: tools
+        annotations:
+          summary: 'Prometheus restarting frequently'
+          description: 'Prometheus may be crash looping.'

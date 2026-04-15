@@ -27,14 +27,14 @@ services:
       dockerfile: docker/Dockerfile
     container_name: eventing-express-api
     ports:
-      - 3093:3000 # Access API at http://localhost:3093
+      - 3094:3000 # Access API at http://localhost:3094
     environment:
       - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672
     networks:
       - toolsnet
     restart: unless-stopped
     volumes:
-      - ./backend:/usr/src/app
+      - ./backend:/app
       - /usr/src/app/node_modules
 networks:
   toolsnet:

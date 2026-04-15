@@ -1,0 +1,17 @@
+{
+  "name": "@tools/observability",
+  "version": "0.1.0",
+  "description": "Observability tools and services",
+  "keywords": [
+    "observability",
+    "tools",
+    "services"
+  ],
+  "license": "ISC",
+  "author": "chiral-faraday",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
