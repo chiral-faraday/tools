@@ -1,0 +1,43 @@
+# config/alertmanager/alertmanager.yml
+
+global:
+  smtp_smarthost: 'mailpit:1025'
+  smtp_require_tls: false
+  smtp_from: 'alertmanager@tools.tools'
+
+route:
+  receiver: default
+  group_by: ['alertname', 'severity']
+  group_wait: 5s
+  group_interval: 30s
+  repeat_interval: 2m
+
+  routes:
+    - receiver: critical
+      matchers:
+        - severity = "critical"
+
+inhibit_rules:
+  - source_matchers:
+      - severity = "critical"
+    target_matchers:
+      - severity = "warning"
+    equal: ['alertname']
+
+receivers:
+  - name: default
+    email_configs:
+      - to: 'default@tools.alert'
+    webhook_configs:
+      - url: 'http://ntfy:80/observability-training?template=alertmanager'
+        send_resolved: true
+
+  - name: critical
+    email_configs:
+      - to: 'critical@tools.alert'
+    webhook_configs:
+      - url: 'http://ntfy:80/observability-critical?template=alertmanager'
+        send_resolved: true
+
+templates:
+  - /etc/alertmanager/templates/ntfy.tmpl
