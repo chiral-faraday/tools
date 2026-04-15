@@ -144,7 +144,7 @@ Expected:
 Prometheus is Ready.
 ```
 
-## 🧹 Stopping the stack
+## Stopping the stack
 
 ```bash
 docker compose down
@@ -158,7 +158,7 @@ docker compose down -v
 
 ## Troubleshooting Guide
 
-### ❌ Container keeps restarting
+### Container keeps restarting
 
 Check logs:
 
@@ -166,7 +166,7 @@ Check logs:
 docker compose logs -f
 ```
 
-### ❌ “no such file or directory”
+### “no such file or directory”
 
 * Missing config file (e.g. `prometheus.yml`)
 * Verify:
@@ -175,7 +175,7 @@ docker compose logs -f
 ls config/prometheus/
 ```
 
-### ❌ “permission denied”
+### “permission denied”
 
 Check ownership:
 
@@ -194,7 +194,7 @@ Fix:
 sudo chown -R <UID>:<GID> <directory>
 ```
 
-### ❌ Grafana plugins/data not writable
+### Grafana plugins/data not writable
 
 Determine id (in container):
 
@@ -208,9 +208,7 @@ Fix (using the retrieved id):
 sudo chown -R 472:472 data/grafana
 ```
 
----
-
-### ❌ Prometheus TSDB issues
+### Prometheus TSDB issues
 
 Fix:
 
